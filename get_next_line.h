@@ -14,9 +14,14 @@
 # define GET_NEXT_LINE_H
 # include "unistd.h"
 # include "limits.h"
+# include "stdlib.h"
 # include "stdio.h"
 # define BUFFER_SIZE 42
 
-char	*malloc_buffer(size_t size);
+char	*ft_malloc_buffer(size_t size);
+int		ft_strchr_len(const char *src, unsigned int c);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strchr(const char *src, unsigned int c)
 
 #endif
