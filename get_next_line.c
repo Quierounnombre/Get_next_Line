@@ -14,43 +14,43 @@
 
 char	*get_next_line(int fd)
 {
-	char		*buffer;
+	static char	*buffer;
 	char		*line;
-	static int	NLine;
+	char		*existN;
+	char		*tmp;
 
-	buffer = ft_malloc_buffer(BUFFER_SIZE);
+	if (!buffer)
+		buffer = (char *)malloc (sizeof(char) * BUFFER_SIZE);
 	if (buffer)
 	{
-		read(fd, &buffer, BUFFER_SIZE);
-		line = ft_linegetter(buffer, NLine)
-		NLine++;
-		return (s);
+		tmp = NULL;
+		while (!existN)
+		{
+			read(fd, buffer, BUFFER_SIZE);
+			existN = ft_strchr(buffer, '\n');
+			if (existN)
+			{
+				ft_strlcpy(tmp, buffer, ft_lencpy(buffer, existN));
+				line = ft_strjoin(line, buffer);
+				buffer = ft_substr(existN, 0, BUFFER_SIZE);
+			}
+			else
+				line = ft_strjoin(line, buffer);
+		}
+		free(tmp);
+		return (line);
 	}
 	return (NULL);
 }
 
-char	*ft_linegetter(char	*buffer, int Nline)
+int	ft_lencpy(char *buffer, char *existN)
 {
-	int		slen;
-	char	*s;
-	char	*line;
-	int		i;
+	int	lenbuffer;
+	int	lenexistN;
 
-	i = 0;
-	flag = 0;
-	slen = ft_strchr_len(buffer, '\n');
-	if (slen > 0)
-	{
-		s = ft_substr(buffer, 0, slen);
-		line = ft_strjoin(line, s);
-		if (ft_strchr(buffer, '\n') != NULL || ft_strchr(buffer, '\0' != NULL))
-		{
-			i++;
-			if (Nline == i)
-				return (line);
-			ft_linegetter()
-		}
-		free(s);
-		free(buffer);
-	}
+	lenbuffer = 0;
+	lenexistN = 0;
+	ft_strlen(buffer);
+	ft_strlen(existN);
+	return (lenbuffer - lenexistN);
 }

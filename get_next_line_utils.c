@@ -12,18 +12,6 @@
 
 #include "get_next_line.h"
 
-char	*malloc_buffer(size_t size)
-{
-	char	*s;
-
-	if (!size)
-		return (NULL);
-	s = (char *)malloc (size * sizeof(char));
-	if (!s)
-		return (NULL);
-	return (s);
-}
-
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	int		i;
@@ -51,23 +39,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (str);
 	}
 	return (NULL);
-}
-
-int	ft_strchr_len(const char *src, unsigned int c)
-{
-	int	i;
-
-	i = 0;
-	while (*src != '\0')
-	{
-		i++;
-		if (*src == (unsigned char)c)
-		{
-			return (i);
-		}
-		src++;
-	}
-	return (i);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -109,4 +80,34 @@ char	*ft_strchr(const char *src, unsigned int c)
 	if (c == '\0')
 		return ((char *)src);
 	return (NULL);
+}	
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (*s != '\0')
+	{
+		s++;
+		i++;
+	}
+	return (i);
+}
+
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	if (size > 0)
+	{
+		while (src[i] != '\0' && i < (size - 1))
+		{
+			dest[i] = src[i];
+			i++;
+		}
+		dest[i] = '\0';
+	}
+	return (ft_strlen(src));
 }

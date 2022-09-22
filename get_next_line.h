@@ -18,10 +18,12 @@
 # include "stdio.h"
 # define BUFFER_SIZE 42
 
-char	*ft_malloc_buffer(size_t size);
-int		ft_strchr_len(const char *src, unsigned int c);
+size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strchr(const char *src, unsigned int c)
+char	*ft_strchr(const char *src, unsigned int c);
+size_t	ft_strlcpy(char *dest, const char *src, size_t size);
+
+int	ft_lencpy(char *buffer, char *existN);
 
 #endif
