@@ -14,43 +14,45 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
 	char		*line;
-	char		*existN;
+	char		*existn;
 	char		*tmp;
+	int			charread;
+	static char	buffer[(BUFFER_SIZE + 1)];
 
-	if (!buffer)
-		buffer = (char *)malloc (sizeof(char) * BUFFER_SIZE);
-	if (buffer)
+	if (fd > 0 && BUFFER_SIZE > 0)
 	{
 		tmp = NULL;
-		while (!existN)
+		charread = read(fd, buffer, BUFFER_SIZE);
+		while (!existn && (charread > 0))
 		{
-			read(fd, buffer, BUFFER_SIZE);
-			existN = ft_strchr(buffer, '\n');
-			if (existN)
-			{
-				ft_strlcpy(tmp, buffer, ft_lencpy(buffer, existN));
-				line = ft_strjoin(line, buffer);
-				buffer = ft_substr(existN, 0, BUFFER_SIZE);
-			}
-			else
-				line = ft_strjoin(line, buffer);
+			buffer[charread] = '\0';
+			existn = ft_strchr(buffer, '\n');
+			tmp = line;
+			line = NULL;
+			line = ft_strjoin(tmp, buffer);
+			free(tmp);
+			charread = read(fd, buffer, BUFFER_SIZE);
 		}
-		free(tmp);
+		if (charread == 0)
+			return (line);
+		if (existn)
+		{
+			tmp = line;
+			buffer = existn;
+			existn = ft_substr(buffer, 0, existn - buffer);
+			line = ft_strjoin(tmp, existn);
+			free (tmp);
+			free (existn);
+		}
 		return (line);
 	}
 	return (NULL);
 }
 
-int	ft_lencpy(char *buffer, char *existN)
-{
-	int	lenbuffer;
-	int	lenexistN;
-
-	lenbuffer = 0;
-	lenexistN = 0;
-	ft_strlen(buffer);
-	ft_strlen(existN);
-	return (lenbuffer - lenexistN);
-}
+/*Neceita:
+	-Una función que guarde el valor de la linea.
+	-Una función para el ciclo principal de insertar en la linea.
+	-Una función para la exepción de salto de linea.
+	-Que no pete?
+*/
