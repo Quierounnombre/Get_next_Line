@@ -41,32 +41,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (NULL);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	size_t	i;
-	size_t	j;
-	char	*str;
-
-	i = 0;
-	j = 0;
-	if (!s)
-		return (NULL);
-	str = (char *)malloc((len + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	while (s[i] && j < len)
-	{
-		if (i >= start && j < len)
-		{
-			str[j] = s[i];
-			j++;
-		}
-		i++;
-	}
-	str[j] = 0;
-	return (str);
-}
-
 char	*ft_strchr(const char *src, unsigned int c)
 {
 	while (*src != '\0')
