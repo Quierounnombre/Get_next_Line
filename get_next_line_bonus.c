@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*read_main(char *buffer, int fd)
 {
@@ -86,20 +86,20 @@ char	*take_rest(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	*buffer[FD_SETSIZE];
 	char		*reline;
 
 	if (BUFFER_SIZE <= 0 || read(fd, 0, 0))
 		return (NULL);
-	if (!buffer)
+	if (!buffer[fd])
 	{
-		buffer = (char *)malloc(sizeof(char));
-		*buffer = '\0';
+		buffer[fd] = (char *)malloc(sizeof(char));
+		*buffer[fd] = '\0';
 	}
-	buffer = read_main(buffer, fd);
-	if (!buffer)
+	buffer[fd] = read_main(buffer[fd], fd);
+	if (!buffer[fd])
 		return (NULL);
-	reline = cut_line(buffer);
-	buffer = take_rest(buffer);
+	reline = cut_line(buffer[fd]);
+	buffer[fd] = take_rest(buffer[fd]);
 	return (reline);
 }
